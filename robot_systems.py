@@ -1,7 +1,7 @@
 from toolkit.motors.ctre_motors import TalonFX
 
 from toolkit.subsystem import Subsystem
-
+import config
 class SingleMotorSubsystem(Subsystem): # single motor class 
     def __init__(self): 
         super().__init__()
@@ -21,18 +21,18 @@ class SingleMotorSubsystem(Subsystem): # single motor class
 class Robot:
     drivetrain = SingleMotorSubsystem()
 
-class Field:
+# class Field:
     # odometry = sensors.FieldOdometry(Robot.drivetrain)
-    nt_reporter = NT_Updater("Field")
+    # nt_reporter = NT_Updater("Field")
 
-    @staticmethod
-    def flip_poses():
-        print("Flipping Pos")
-        flip_poses()
+    # @staticmethod
+    # def flip_poses():
+    #     print("Flipping Pos")
+    #     flip_poses()
 
 
-    @staticmethod
-    def update_field_table(debug=False): #TODO Why doesn't this also call update_odometry? 
-        print("Updating Table")
-        update_table(Field.nt_reporter, False)
+    # @staticmethod
+    # def update_field_table(debug=False): #TODO Why doesn't this also call update_odometry? 
+    #     print("Updating Table")
+    #     update_table(Field.nt_reporter, False)
 
