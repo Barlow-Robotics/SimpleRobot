@@ -15,9 +15,9 @@ from robot_systems import RobotSystems
 class Robot(wpilib.TimedRobot):
     def robotInit(self) -> None:
         """Robot initialization function"""
-        self.robot = RobotSystems()
+        self.robot_systems = RobotSystems()
 
-        self.robot.init()
+        self.robot_systems.init()
 
         self.scheduler = commands2.CommandScheduler.getInstance()
 
@@ -32,7 +32,7 @@ class Robot(wpilib.TimedRobot):
         pass
 
     def teleopInit(self):
-        teleop.setup_controls(self.robot)
+        teleop.setup_controls(self.robot_systems)
 
     def teleopPeriodic(self) -> None:
         pass
