@@ -27,3 +27,17 @@ From the Terminal:
 ```
 uv run robotpy sim
 ```
+
+## Important files
+- `robot.py`
+    - Main entry point for the program. This is high-level scaffoling that initiates the robot, sets up the scheduler, logging, etc.
+- `config.py`
+    - Constants related to physical robot configuration like CAN ids and gear ratios
+- `robot_systems.py`
+    - Container that defines all of subsystems that belong to the robot.
+- `keymap.py`
+    - Defines the mapping between PHYSICAL joysticks and buttons and LOGICAL behaviors. This is the only place we should talk about buttons by id.
+- `teleop.py`
+    - This file wires up LOGICAL behaviors to sub-system commands.
+- `subsystem/`
+    - Directory where we store the different subsystem definitions.

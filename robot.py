@@ -8,14 +8,14 @@
 import commands2
 import wpilib
 
-from keymap import Keymap
-from robot_systems import Robot
+import teleop
+from robot_systems import RobotSystems
 
 
-class _Robot(wpilib.TimedRobot):
+class Robot(wpilib.TimedRobot):
     def robotInit(self) -> None:
         """Robot initialization function"""
-        self.robot = Robot()
+        self.robot = RobotSystems()
 
         self.robot.init()
 
@@ -32,17 +32,11 @@ class _Robot(wpilib.TimedRobot):
         pass
 
     def teleopInit(self):
-        # When we init teleop, connect the RUN key -> start/stop motor commands
-        # Avoid creating commands here; do that in the subsystem
-        Keymap.SingleMotor.RUN.onTrue(
-            self.robot.single_motor.cmd_start_motor,
-        ).onFalse(
-            self.robot.single_motor.cmd_stop_motor,
-        )
+        teleop.setup_controls(self.robot)
 
     def teleopPeriodic(self) -> None:
         pass
 
 
 if __name__ == "__main__":
-    wpilib.run(_Robot)
+    wpilib.run(Robot)
