@@ -7,20 +7,27 @@
 
 import commands2
 import wpilib
-import wpilib.drive
+from commands2.button import CommandJoystick
 
 from robot_systems import Robot
+
+
+# TODO: This can get moved to keymap.py
+class Controllers:
+    OPERATOR = CommandJoystick(0)
+    DRIVER = CommandJoystick(1)
+
+
+# KeyMap is the only place where we should hard-code things related to button-ids
+class Keymap:
+    class SingleMotor:
+        RUN = Controllers.OPERATOR.button(1)
 
 
 class _Robot(wpilib.TimedRobot):
     def robotInit(self) -> None:
         """Robot initialization function"""
-        self.controller = wpilib.XboxController(0)
         self.robot = Robot()
-
-        self.cool_button_motorspin = commands2.button.JoystickButton(
-            wpilib.Joystick(0), 1
-        )
 
         self.robot.init()
 
@@ -37,9 +44,13 @@ class _Robot(wpilib.TimedRobot):
         pass
 
     def teleopInit(self):
-        self.cool_button_motorspin.onTrue(
-            commands2.cmd.runOnce(self.robot.drivetrain.move_motor)
-        ).onFalse(commands2.cmd.runOnce(self.robot.drivetrain.stop_motor))
+        # When we init teleop, connect the RUN key -> start/stop motor commands
+        # Avoid creating commands here; do that in the subsystem
+        Keymap.SingleMotor.RUN.onTrue(
+            self.robot.single_motor.cmd_start_motor,
+        ).onFalse(
+            self.robot.single_motor.cmd_stop_motor,
+        )
 
     def teleopPeriodic(self) -> None:
         pass

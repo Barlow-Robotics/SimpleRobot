@@ -1,12 +1,16 @@
-from toolkit.motors.ctre_motors import TalonFX
+import commands2
 
-from toolkit.subsystem import Subsystem
 import config
+from toolkit.motors.ctre_motors import TalonFX
+from toolkit.subsystem import Subsystem
 
 
 class SingleMotorSubsystem(Subsystem):  # single motor class
+    # order of operations: __init__() called first, then init() called later.
     def __init__(self):
         super().__init__()
+
+        # Declare the motor as a TalonFX
         self.motor = TalonFX(
             config.front_left_move_id,
             foc=config.foc_active,
@@ -14,8 +18,16 @@ class SingleMotorSubsystem(Subsystem):  # single motor class
             inverted=config.front_left_move_inverted,
         )
 
-    def move_motor(self):
-        print("MOVE MOTOR")
+        # Create subsystem commands to start/stop the motor
+        self.cmd_start_motor = commands2.cmd.runOnce(
+            self.start_motor,
+        )
+        self.cmd_stop_motor = commands2.cmd.runOnce(
+            self.stop_motor,
+        )
+
+    def start_motor(self):
+        print("START MOTOR")
         self.motor.set_voltage(4)  # set speed of motor to 0.1 volts
 
     def stop_motor(self):
@@ -26,28 +38,10 @@ class SingleMotorSubsystem(Subsystem):  # single motor class
         print("Initializing single motor subsystem")
         self.motor.init()  # IMPORTANT: HAVE TO INIT ALL TALONFX MOTORS OR ERROR AND DO IT HERE NOT AT __init__
 
-    # order of operations: __init__() called first, then init() called later.
-
 
 class Robot:
     def __init__(self):
-        self.drivetrain = SingleMotorSubsystem()
+        self.single_motor = SingleMotorSubsystem()
 
     def init(self):
-        self.drivetrain.init()
-
-
-# class Field:
-# odometry = sensors.FieldOdometry(Robot.drivetrain)
-# nt_reporter = NT_Updater("Field")
-
-# @staticmethod
-# def flip_poses():
-#     print("Flipping Pos")
-#     flip_poses()
-
-
-# @staticmethod
-# def update_field_table(debug=False): #TODO Why doesn't this also call update_odometry?
-#     print("Updating Table")
-#     update_table(Field.nt_reporter, False)
+        self.single_motor.init()
