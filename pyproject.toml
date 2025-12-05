@@ -8,8 +8,9 @@ requires-python = ">=3.11"
 # This controls the libraries installed in the HOST environment
 # This is important for simulation and local debugging
 dependencies = [
-    # The host environment needs this for debugging
+    # The host environment needs these tools for development, debugging, etc.
     "debugpy",
+    "ruff",
 
     # This list should match the `tool.robotpy.robotpy_extras` or `uv sync` will remove the packages again
     "robotpy[apriltag,commands2,pathplannerlib,phoenix6,rev,sim]",
