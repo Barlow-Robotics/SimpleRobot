@@ -1,5 +1,12 @@
+"""
+This is a shim to launch the robot code in debug mode via robotpy and debugpy.
+
+See `.vscode/launch.json` for the corresponding VS Code launch configuration.
+"""
+
 #!/usr/bin/env python3
 import sys
+
 import debugpy
 
 # RobotPy's CLI entrypoint lives here

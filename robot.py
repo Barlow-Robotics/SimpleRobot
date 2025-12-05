@@ -1,7 +1,7 @@
 """
 This is a stub file to launch the robot code via robotpy.
 
-See `src/robot_core.py` for the main robot code.
+See `src/robot_core.py` for the main robot code entry point.
 """
 
 import wpilib
