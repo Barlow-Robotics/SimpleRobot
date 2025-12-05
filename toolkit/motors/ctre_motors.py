@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from phoenix6 import StatusCode, StatusSignal, configs, controls, hardware, signals
 
-import config
+# import config
 from toolkit.motor import PIDMotor
 from units.SI import rotations, rotations_per_second
 from utils import LocalLogger
@@ -203,8 +203,8 @@ class TalonFX(PIDMotor):
             return
         if status != StatusCode.OK:
             self._logger.error(f"Error: {status} {message}")
-            if config.DEBUG_MODE:
-                raise RuntimeError(f"Error: {status} {message}")
+            # if config.DEBUG_MODE:
+            #     raise RuntimeError(f"Error: {status} {message}")
 
     def get_sensor_position(self) -> rotations:
         self._motor_pos.refresh()
