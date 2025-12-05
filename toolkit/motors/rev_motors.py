@@ -204,12 +204,11 @@
 #                 self._set_config(config, enum)
 
 #         self.motor.setInverted(self._inverted)
-        
-        
-        
+
+
 #         CAN_delay(0.5)
 #         self.motor.burnFlash()
-        
+
 #         CAN_delay(0.25)
 
 #         self._has_init_run = True

@@ -29,7 +29,7 @@ class Pigeon2(BaseGyro):
         :return: Robot heading (radians)
         """
         return math.radians(self._gyro.get_yaw().value)
-    
+
     def get_robot_heading_rate(self) -> radians_per_second:
         """
         Returns the rate of the robot's heading in radians per second
@@ -43,7 +43,7 @@ class Pigeon2(BaseGyro):
         :return: Robot pitch (radians)
         """
         return math.radians(self._gyro.get_pitch().value)
-    
+
     def get_robot_pitch_rate(self) -> radians_per_second:
         """
         Returns the rate of the robot's pitch in radians per second
@@ -57,7 +57,7 @@ class Pigeon2(BaseGyro):
         :return: Robot roll (radians)
         """
         return math.radians(self._gyro.get_roll().value)
-    
+
     def get_robot_roll_rate(self) -> radians_per_second:
         """
         Returns the rate of the robot's roll in radians per second
@@ -70,16 +70,12 @@ class Pigeon2(BaseGyro):
         Resets the gyro's yaw.
         """
         self._gyro.set_yaw(math.degrees(angle))
-        
+
     def get_x_accel(self):
-        
         return self._gyro.get_acceleration_x().value
-    
+
     def get_y_accel(self):
-        
         return self._gyro.get_acceleration_y().value
-    
+
     def get_z_accel(self):
-        
         return self._gyro.get_acceleration_z().value
-    

@@ -255,7 +255,7 @@ class TalonFX(PIDMotor):
             self._motor.set_control(self._duty_cycle_out.with_output(x)),
             f"raw output: {x}",
         )
-    
+
     def set_voltage(self, voltage: float):
         self.error_check(
             self._motor.set_control(self._voltage.with_output(voltage)),

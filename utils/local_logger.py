@@ -4,6 +4,7 @@ from enum import IntEnum
 from wpilib import DataLogManager, DriverStation, TimedRobot, Timer
 from wpilib.deployinfo import getDeployData
 from wpiutil.log import StringLogEntry
+
 # from constants import LOGGING, LOG_FILE_LEVEL, LOG_OUT_LEVEL
 LOGGING: bool = True
 LOG_OUT_LEVEL: int = 0

@@ -5,14 +5,11 @@
 # the WPILib BSD license file in the root directory of this project.
 #
 
-import wpilib
-import wpimath
-import wpilib.drive
-import wpimath.filter
-import wpimath.controller
-from robot_systems import Robot
 import commands2
+import wpilib
+import wpilib.drive
 
+from robot_systems import Robot
 
 
 class _Robot(wpilib.TimedRobot):
@@ -46,4 +43,3 @@ class _Robot(wpilib.TimedRobot):
 
     def teleopPeriodic(self) -> None:
         pass
- 
