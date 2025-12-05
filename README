@@ -1,0 +1,5 @@
+To sim code:
+robotpy sim
+
+To deploy code:
+robotpy deploy --skip-tests

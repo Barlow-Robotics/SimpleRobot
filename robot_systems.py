@@ -9,7 +9,7 @@ class SingleMotorSubsystem(Subsystem): # single motor class
         
     def move_motor(self):
         print("MOVE MOTOR")
-        self.motor.set_voltage(0.1) # set speed of motor to 0.1 volts
+        self.motor.set_voltage(4) # set speed of motor to 0.1 volts
 
     def stop_motor(self):
         print("STOP MOTOR")
