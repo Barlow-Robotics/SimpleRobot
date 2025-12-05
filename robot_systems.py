@@ -8,9 +8,11 @@ class SingleMotorSubsystem(Subsystem): # single motor class
         self.motor = TalonFX(config.front_left_move_id, foc=config.foc_active, config=config.MOVE_CONFIG, inverted=config.front_left_move_inverted)
         
     def move_motor(self):
+        print("MOVE MOTOR")
         self.motor.set_voltage(0.1) # set speed of motor to 0.1 volts
 
     def stop_motor(self):
+        print("STOP MOTOR")
         self.motor.set_voltage(0)
 
     def init(self):
