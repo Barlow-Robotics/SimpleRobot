@@ -15,6 +15,7 @@ We use ruff for formatting code. This ensures consistency and minimizes white-sp
  - Before pushing code always format using ruff:
     ```
     uv run ruff format
+    uv run ruff check
     ```
 
 ## Useful commands

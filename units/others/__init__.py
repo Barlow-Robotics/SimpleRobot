@@ -4,8 +4,9 @@ Source: http://physics.nist.gov/cuu/Units/outside.html
 """
 
 from math import pi
+
 from units import Unum
-from units.SI import *
+from units.SI import BQ, KG, PA, RAD, SV, C, J, M, s
 
 unit = Unum.unit
 
@@ -15,7 +16,7 @@ d = D = unit("d", 24 * H, "day")
 deg = ARCDEG = unit("deg", pi / 180 * RAD, "degree (angle)")
 arcmin = ARCMIN = unit("'", ARCDEG / 60, "minute (angle)")
 arcsec = ARCSEC = unit("''", ARCMIN / 60, "second (angle)")
-l = L = unit("L", 1e-3 * M**3, "liter")
+L = unit("L", 1e-3 * M**3, "liter")
 t = TON = unit("t", 1e3 * KG, "metric ton")
 Np = NP = unit("Np", 1, "neper")
 dB = DECIBEL = unit("dB", 0, "decibel")
