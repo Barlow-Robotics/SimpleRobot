@@ -43,3 +43,7 @@ class _Robot(wpilib.TimedRobot):
 
     def teleopPeriodic(self) -> None:
         pass
+
+
+if __name__ == "__main__":
+    wpilib.run(_Robot)
