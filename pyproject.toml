@@ -4,12 +4,25 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = ["robotpy", "debugpy"]
+
+# This controls the libraries installed in the HOST environment
+# This is important for simulation and local debugging
+dependencies = [
+    # The host environment needs this for debugging
+    "debugpy",
+
+    # This list should match the `tool.robotpy.robotpy_extras` or `uv sync` will remove the packages again
+    "robotpy[apriltag,commands2,pathplannerlib,phoenix6,rev,sim]",
+
+    # This list should match the `tool.robotpy.requires`
+    "numpy",
+    "photonlibpy",
+    "phoenix6"
+]
 
 #
-# Use this configuration file to control what RobotPy packages are installed
+# This configuration file to control what RobotPy packages are installed
 # on your RoboRIO
-#
 
 [tool.robotpy]
 
@@ -35,6 +48,7 @@ robotpy_extras = [
 ]
 
 # Other pip packages to install
+# Leave this empty, we use uv for pip packages
 requires = [
     "numpy",
     "photonlibpy",
