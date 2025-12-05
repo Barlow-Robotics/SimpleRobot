@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "RobotPy sim via uv",
+        "type": "debugpy",
+        "request": "launch",
+        "python": "uv",
+        "pythonArgs": ["run", "python"],
+        "program": "${workspaceFolder}/debug_sim.py",
+        "console": "integratedTerminal",
+        "justMyCode": false,
+      }
+    ]
+  }
