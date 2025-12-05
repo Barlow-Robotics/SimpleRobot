@@ -1,42 +1,17 @@
-#!/usr/bin/env python3
-#
-# Copyright (c) FIRST and other WPILib contributors.
-# Open Source Software; you can modify and/or share it under the terms of
-# the WPILib BSD license file in the root directory of this project.
-#
+"""
+This is a stub file to launch the robot code via robotpy.
 
-import commands2
+See `src/robot_core.py` for the main robot code entry point.
+"""
+
 import wpilib
 
-import teleop
-from robot_systems import RobotSystems
+from robot_core import Robot
 
 
-class Robot(wpilib.TimedRobot):
-    def robotInit(self) -> None:
-        """Robot initialization function"""
-        self.robot_systems = RobotSystems()
-
-        self.robot_systems.init()
-
-        self.scheduler = commands2.CommandScheduler.getInstance()
-
-    def robotPeriodic(self):
-        try:
-            self.scheduler.run()
-        except Exception as e:
-            self.log.error(e)
-            self.nt.getTable("errors").putString("command scheduler", str(e))
-
-    def autonomousPeriodic(self) -> None:
-        pass
-
-    def teleopInit(self):
-        teleop.setup_controls(self.robot_systems)
-
-    def teleopPeriodic(self) -> None:
-        pass
+class _Robot(Robot):
+    pass
 
 
 if __name__ == "__main__":
-    wpilib.run(Robot)
+    wpilib.run(_Robot)
