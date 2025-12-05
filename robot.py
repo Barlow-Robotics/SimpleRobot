@@ -7,21 +7,9 @@
 
 import commands2
 import wpilib
-from commands2.button import CommandJoystick
 
+from keymap import Keymap
 from robot_systems import Robot
-
-
-# TODO: This can get moved to keymap.py
-class Controllers:
-    OPERATOR = CommandJoystick(0)
-    DRIVER = CommandJoystick(1)
-
-
-# KeyMap is the only place where we should hard-code things related to button-ids
-class Keymap:
-    class SingleMotor:
-        RUN = Controllers.OPERATOR.button(1)
 
 
 class _Robot(wpilib.TimedRobot):
