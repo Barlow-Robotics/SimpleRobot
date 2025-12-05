@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
       {
-        "name": "RobotPy sim via uv",
+        "name": "[Debug] Simulate Robot",
         "type": "debugpy",
         "request": "launch",
         "python": "uv",
@@ -11,5 +11,5 @@
         "console": "integratedTerminal",
         "justMyCode": false,
       }
-    ]
+    ],
   }

@@ -1,0 +1,22 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Simulate Robot",
+        "type": "shell",
+        "command": "uv",
+        "args": [
+            "run",
+            "python",
+            "-m",
+            "robotpy",
+            "sim"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "problemMatcher": []
+      }
+    ]
+  }

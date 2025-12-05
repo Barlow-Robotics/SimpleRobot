@@ -16,3 +16,14 @@ We use ruff for formatting code. This ensures consistency and minimizes white-sp
     ```
     uv run ruff format
     ```
+
+## Useful commands
+
+### Start the simulator
+In VS Code:
+- Command > Run Task > Simulate Robot Code
+
+From the Terminal:
+```
+uv run robotpy sim
+```
