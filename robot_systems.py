@@ -19,7 +19,11 @@ class SingleMotorSubsystem(Subsystem): # single motor class
     # order of operations: __init__() called first, then init() called later.
 
 class Robot:
-    drivetrain = SingleMotorSubsystem()
+    def __init__(self):
+        self.drivetrain = SingleMotorSubsystem()
+
+    def init(self):
+        self.drivetrain.init()
 
 # class Field:
     # odometry = sensors.FieldOdometry(Robot.drivetrain)

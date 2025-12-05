@@ -29,9 +29,12 @@ class _Robot(wpilib.TimedRobot):
             wpilib.Joystick(0), 1
         )
 
+        self.robot.init()
+
     def autonomousPeriodic(self) -> None:
         self.driveWithJoystick(False)
         # self.swerve.updateOdometry()
+
     def telopInit(self):
         self.cool_button_motorspin.onTrue(
             self.robot.drivetrain.move_motor()
