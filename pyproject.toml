@@ -55,3 +55,9 @@ requires = [
     "photonlibpy",
     "phoenix6"
 ]
+
+[tool.ruff.lint]
+ignore = ["F401"]
+
+[tool.ruff]
+line-length = 120

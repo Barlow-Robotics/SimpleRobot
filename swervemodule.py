@@ -41,9 +41,7 @@ class SwerveModule:
         self.turningMotor = wpilib.PWMSparkMax(turningMotorChannel)
 
         self.driveEncoder = wpilib.Encoder(driveEncoderChannelA, driveEncoderChannelB)
-        self.turningEncoder = wpilib.Encoder(
-            turningEncoderChannelA, turningEncoderChannelB
-        )
+        self.turningEncoder = wpilib.Encoder(turningEncoderChannelA, turningEncoderChannelB)
 
         # Gains are for example purposes only - must be determined for your own robot!
         self.drivePIDController = wpimath.controller.PIDController(1, 0, 0)
@@ -66,9 +64,7 @@ class SwerveModule:
         # Set the distance per pulse for the drive encoder. We can simply use the
         # distance traveled for one rotation of the wheel divided by the encoder
         # resolution.
-        self.driveEncoder.setDistancePerPulse(
-            math.tau * kWheelRadius / kEncoderResolution
-        )
+        self.driveEncoder.setDistancePerPulse(math.tau * kWheelRadius / kEncoderResolution)
 
         # Set the distance (in this case, angle) in radians per pulse for the turning encoder.
         # This is the the angle through an entire rotation (2 * pi) divided by the
@@ -99,9 +95,7 @@ class SwerveModule:
             wpimath.geometry.Rotation2d(self.turningEncoder.getDistance()),
         )
 
-    def setDesiredState(
-        self, desiredState: wpimath.kinematics.SwerveModuleState
-    ) -> None:
+    def setDesiredState(self, desiredState: wpimath.kinematics.SwerveModuleState) -> None:
         """Sets the desired state for the module.
 
         :param desiredState: Desired state with speed and angle.
@@ -118,9 +112,7 @@ class SwerveModule:
         desiredState.cosineScale(encoderRotation)
 
         # Calculate the drive output from the drive PID controller.
-        driveOutput = self.drivePIDController.calculate(
-            self.driveEncoder.getRate(), desiredState.speed
-        )
+        driveOutput = self.drivePIDController.calculate(self.driveEncoder.getRate(), desiredState.speed)
 
         driveFeedforward = self.driveFeedforward.calculate(desiredState.speed)
 
@@ -129,9 +121,7 @@ class SwerveModule:
             self.turningEncoder.getDistance(), desiredState.angle.radians()
         )
 
-        turnFeedforward = self.turnFeedforward.calculate(
-            self.turningPIDController.getSetpoint().velocity
-        )
+        turnFeedforward = self.turnFeedforward.calculate(self.turningPIDController.getSetpoint().velocity)
 
         self.driveMotor.setVoltage(driveOutput + driveFeedforward)
         self.turningMotor.setVoltage(turnOutput + turnFeedforward)

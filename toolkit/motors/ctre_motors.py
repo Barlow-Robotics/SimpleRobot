@@ -71,21 +71,15 @@ class TalonConfig:
         # current limits
         current_limits_config = talon_config.current_limits
         current_limits_config.stator_current_limit = self.current_limit
-        current_limits_config.stator_current_limit_enable = (
-            True if self.current_limit > 0 else False
-        )
+        current_limits_config.stator_current_limit_enable = True if self.current_limit > 0 else False
 
         # brake mode
         brake_mode_config = talon_config.motor_output
         brake_mode_config.neutral_mode = (
-            signals.NeutralModeValue.BRAKE
-            if self.brake_mode
-            else signals.NeutralModeValue.COAST
+            signals.NeutralModeValue.BRAKE if self.brake_mode else signals.NeutralModeValue.COAST
         )
         brake_mode_config.inverted = (
-            signals.InvertedValue.COUNTER_CLOCKWISE_POSITIVE
-            if inverted
-            else signals.InvertedValue.CLOCKWISE_POSITIVE
+            signals.InvertedValue.COUNTER_CLOCKWISE_POSITIVE if inverted else signals.InvertedValue.CLOCKWISE_POSITIVE
         )
 
         # motion magic
@@ -97,9 +91,7 @@ class TalonConfig:
         # Implementing 6328 logic on configuring talons
 
         for i in range(10):
-            res = motor.configurator.apply(
-                talon_config, 0.2
-            )  # default timeout is 0.1; we seem to need more time
+            res = motor.configurator.apply(talon_config, 0.2)  # default timeout is 0.1; we seem to need more time
             if res == StatusCode.OK:
                 break
 
@@ -220,15 +212,9 @@ class TalonFX(PIDMotor):
     def set_sensor_position(self, pos: rotations):
         self.error_check(self._motor.set_position(pos), f"sensor position: {pos}")
 
-    def set_target_velocity(
-        self, vel: rotations_per_second, accel: rotations_per_second_squared = 0
-    ):
+    def set_target_velocity(self, vel: rotations_per_second, accel: rotations_per_second_squared = 0):
         self.error_check(
-            self._motor.set_control(
-                self._motion_magic_velocity_voltage.with_velocity(
-                    vel
-                ).with_acceleration(accel)
-            ),
+            self._motor.set_control(self._motion_magic_velocity_voltage.with_velocity(vel).with_acceleration(accel)),
             f"target velocity: {vel}, accel: {accel}",
         )
         self.target_velocity = vel
@@ -240,13 +226,9 @@ class TalonFX(PIDMotor):
         )
         self.target = pos
 
-    def set_target_velocity_voltage(
-        self, vel: rotations_per_second, accel: rotations_per_second_squared = 0
-    ):
+    def set_target_velocity_voltage(self, vel: rotations_per_second, accel: rotations_per_second_squared = 0):
         self.error_check(
-            self._motor.set_control(
-                self._velocity_voltage.with_velocity(vel).with_acceleration(accel)
-            ),
+            self._motor.set_control(self._velocity_voltage.with_velocity(vel).with_acceleration(accel)),
             f"target velocity: {vel}, accel: {accel}",
         )
 

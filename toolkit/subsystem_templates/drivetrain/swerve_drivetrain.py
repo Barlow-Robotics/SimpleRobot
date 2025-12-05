@@ -62,9 +62,7 @@ class SwerveNode:
         abs_encoder_position: float = self.encoder.get_absolute_position().value
 
         # Find the difference in current and zero absolute position
-        encoder_difference: float = (
-            abs_encoder_position - self.absolute_encoder_zeroed_pos
-        )
+        encoder_difference: float = abs_encoder_position - self.absolute_encoder_zeroed_pos
 
         if encoder_difference > 0.5:
             encoder_difference -= 1
@@ -90,9 +88,7 @@ class SwerveNode:
             angle_radians (radians_per_second): turning swerve node velocity in radians per second
         """
 
-        self._set_angle(
-            angle_radians, self.get_turn_motor_angle() + self.motor_sensor_offset
-        )
+        self._set_angle(angle_radians, self.get_turn_motor_angle() + self.motor_sensor_offset)
         self.set_motor_velocity(vel if not self.motor_reversed else -vel)
         if TimedRobot.isSimulation():
             self.sim_motor_speed = vel
@@ -107,19 +103,13 @@ class SwerveNode:
         Args:
             pos (radians): angle of the swerve node in radians
         """
-        self.m_turn.set_target_position_voltage(
-            (pos / (2 * math.pi)) * constants.drivetrain_turn_gear_ratio
-        )
+        self.m_turn.set_target_position_voltage((pos / (2 * math.pi)) * constants.drivetrain_turn_gear_ratio)
 
     def get_turn_motor_angle(self) -> radians:
         """
         Get the current angle of the swerve node. return: radians
         """
-        return (
-            (self.m_turn.get_sensor_position() / constants.drivetrain_turn_gear_ratio)
-            * 2
-            * math.pi
-        )
+        return (self.m_turn.get_sensor_position() / constants.drivetrain_turn_gear_ratio) * 2 * math.pi
 
     def get_abs(self):
         """
@@ -133,41 +123,28 @@ class SwerveNode:
         Args:
             vel (meters_per_second): velocity of the swerve node in meters per second
         """
-        rotations_per_second = (
-            vel * constants.drivetrain_move_gear_ratio_as_rotations_per_meter
-        )
+        rotations_per_second = vel * constants.drivetrain_move_gear_ratio_as_rotations_per_meter
 
         rotations_per_second_squared = (
-            (
-                constants.drivetrain_max_accel
-                * constants.drivetrain_move_gear_ratio_as_rotations_per_meter
-            )
+            (constants.drivetrain_max_accel * constants.drivetrain_move_gear_ratio_as_rotations_per_meter)
             if constants.drivetrain_max_accel > 0
             else 0
         )
 
-        self.m_move.set_target_velocity_voltage(
-            rotations_per_second, rotations_per_second_squared
-        )
+        self.m_move.set_target_velocity_voltage(rotations_per_second, rotations_per_second_squared)
 
     def get_motor_velocity(self) -> meters_per_second:
         """
         Get the velocity of the swerve node. Returns m/s
         """
-        return (
-            self.m_move.get_sensor_velocity()
-            / constants.drivetrain_move_gear_ratio_as_rotations_per_meter
-        )
+        return self.m_move.get_sensor_velocity() / constants.drivetrain_move_gear_ratio_as_rotations_per_meter
 
     def get_drive_motor_traveled_distance(self) -> meters:
         """
         Get the distance traveled by the drive motor. Returns meters
         """
         sensor_position = self.m_move.get_sensor_position()
-        return (
-            sensor_position
-            / constants.drivetrain_move_gear_ratio_as_rotations_per_meter
-        )
+        return sensor_position / constants.drivetrain_move_gear_ratio_as_rotations_per_meter
 
     def get_node_position(self) -> SwerveModulePosition:
         """
@@ -177,9 +154,7 @@ class SwerveNode:
             SwerveModulePosition: position of the swerve node
         """
         if TimedRobot.isSimulation():
-            return SwerveModulePosition(
-                self.sim_travel_distance, Rotation2d(self.sim_motor_angle)
-            )
+            return SwerveModulePosition(self.sim_travel_distance, Rotation2d(self.sim_motor_angle))
         return SwerveModulePosition(
             self.get_drive_motor_traveled_distance(),
             Rotation2d(self.get_turn_motor_angle()),
@@ -192,19 +167,11 @@ class SwerveNode:
             SwerveModuleState: state of the swerve node
         """
         if TimedRobot.isSimulation():
-            return SwerveModuleState(
-                self.sim_motor_speed, Rotation2d(self.sim_motor_angle)
-            )
-        return SwerveModuleState(
-            self.get_motor_velocity(), Rotation2d(self.get_turn_motor_angle())
-        )
+            return SwerveModuleState(self.sim_motor_speed, Rotation2d(self.sim_motor_angle))
+        return SwerveModuleState(self.get_motor_velocity(), Rotation2d(self.get_turn_motor_angle()))
 
     def get_target_angle(self) -> radians:
-        return (
-            (self.m_turn.get_target() / constants.drivetrain_turn_gear_ratio)
-            * 2
-            * math.pi
-        )
+        return (self.m_turn.get_target() / constants.drivetrain_turn_gear_ratio) * 2 * math.pi
 
     def find_ks(self, ks: float):
         self.set_motor_angle(0)
@@ -212,9 +179,7 @@ class SwerveNode:
 
     # 0 degrees is facing right | "ethan is our FRC lord and saviour" - sid
     def _set_angle(self, target_angle: radians, initial_angle: radians):
-        target_sensor_angle, flipped, flip_sensor_offset = SwerveNode._resolve_angles(
-            target_angle, initial_angle
-        )
+        target_sensor_angle, flipped, flip_sensor_offset = SwerveNode._resolve_angles(target_angle, initial_angle)
 
         target_sensor_angle -= self.motor_sensor_offset
 
@@ -225,9 +190,7 @@ class SwerveNode:
         self.set_motor_angle(target_sensor_angle)
 
     @staticmethod
-    def _resolve_angles(
-        target_angle: radians, initial_angle: radians
-    ) -> tuple[float, bool, float]:
+    def _resolve_angles(target_angle: radians, initial_angle: radians) -> tuple[float, bool, float]:
         """
         :param target_angle: Target node angle
         :param initial_angle: Initial node sensor angle
@@ -246,9 +209,7 @@ class SwerveNode:
         return diff + initial_angle, False, 0
 
     def update_tables(self):
-        self.nt.putNumber(
-            f"{self.name} target angle", bounded_angle_diff(self.get_target_angle(), 0)
-        )
+        self.nt.putNumber(f"{self.name} target angle", bounded_angle_diff(self.get_target_angle(), 0))
         self.nt.putNumber(
             f"{self.name} current angle",
             bounded_angle_diff(self.get_turn_motor_angle(), 0),

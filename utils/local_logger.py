@@ -168,9 +168,7 @@ class LocalLogger:
             end_color = BColors.ENDC
 
         mode = "DISABLED"
-        is_sim = (
-            f"{sim_color}SIMULATION{end_color}" if TimedRobot.isSimulation() else ""
-        )
+        is_sim = f"{sim_color}SIMULATION{end_color}" if TimedRobot.isSimulation() else ""
         if DriverStation.isEnabled():
             mode = "TELEOP" if DriverStation.isTeleopEnabled() else "AUTONOMOUS"
 

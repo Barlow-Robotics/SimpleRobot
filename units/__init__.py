@@ -17,9 +17,7 @@ class IncompatibleUnitsError(TypeError):
     """An operation on two Unums failed because the units were incompatible."""
 
     def __init__(self, unit1, unit2):
-        TypeError.__init__(
-            self, "%s can't be converted to %s" % (unit1.strUnit(), unit2.strUnit())
-        )
+        TypeError.__init__(self, "%s can't be converted to %s" % (unit1.strUnit(), unit2.strUnit()))
 
 
 class UnumError(Exception):
@@ -244,9 +242,7 @@ class Unum(object):
                             s = subst_unum.replaced(u, conv_unum)
                             new_subst_unums.append((new_subst_dict, s))
                             new_l = len(s._unit)
-                            if new_l < best_l and not (
-                                forDisplay and new_l == 0 and best_l == 1
-                            ):
+                            if new_l < best_l and not (forDisplay and new_l == 0 and best_l == 1):
                                 self._value, self._unit = s._value, s._unit
                                 best_l = new_l
         return self
@@ -273,9 +269,7 @@ class Unum(object):
         s = self.copy()
         o = other.copy()
         s_length, o_length = len(s._unit), len(o._unit)
-        revert = s_length > o_length or (
-            s_length == o_length and s.maxLevel() < o.maxLevel()
-        )
+        revert = s_length > o_length or (s_length == o_length and s.maxLevel() < o.maxLevel())
         if revert:
             s, o = o, s
         target_unum = Unum(s._unit, 1)

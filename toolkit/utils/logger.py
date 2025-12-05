@@ -82,13 +82,9 @@ class Logger:
 
         self.MAX_FILENAME_LENGTH = 0
 
-        self.root_folder = os.path.dirname(
-            os.path.dirname(inspect.currentframe().f_code.co_filename)
-        )
+        self.root_folder = os.path.dirname(os.path.dirname(inspect.currentframe().f_code.co_filename))
 
-    def _log_function(
-        self, func, msg: str, header=None, frame=None, traceback_length=5
-    ) -> str:
+    def _log_function(self, func, msg: str, header=None, frame=None, traceback_length=5) -> str:
         """
         Internal colored logging function.
         """
@@ -123,20 +119,13 @@ class Logger:
         if len(filename_display) > self.MAX_FILENAME_LENGTH:
             self.MAX_FILENAME_LENGTH = len(filename_display)
 
-        msg = (
-            Color.CYAN
-            + filename_display.ljust(self.MAX_FILENAME_LENGTH)
-            + Color.END
-            + msg
-        )
+        msg = Color.CYAN + filename_display.ljust(self.MAX_FILENAME_LENGTH) + Color.END + msg
 
         func(msg)
         return msg
 
     @classmethod
-    def log_info(
-        cls, msg: str, header=None, frame=None, traceback_length: int = 5
-    ) -> str:
+    def log_info(cls, msg: str, header=None, frame=None, traceback_length: int = 5) -> str:
         """
         Logs info
         """
@@ -150,9 +139,7 @@ class Logger:
         return cls()._log_function(log.info, str(msg), header, frame, traceback_length)
 
     @classmethod
-    def log_error(
-        cls, msg: str, header=None, frame=None, traceback_length: int = 5
-    ) -> str:
+    def log_error(cls, msg: str, header=None, frame=None, traceback_length: int = 5) -> str:
         """
         Logs errors
         """
@@ -165,9 +152,7 @@ class Logger:
         return cls()._log_function(log.error, str(msg), header, frame, traceback_length)
 
     @classmethod
-    def log_warning(
-        cls, msg: str, header=None, frame=None, traceback_length: int = 5
-    ) -> str:
+    def log_warning(cls, msg: str, header=None, frame=None, traceback_length: int = 5) -> str:
         """
         Logs errors
         """
@@ -177,9 +162,7 @@ class Logger:
         else:
             frame = inspect.currentframe().f_back
 
-        return cls()._log_function(
-            log.warning, str(msg), header, frame, traceback_length
-        )
+        return cls()._log_function(log.warning, str(msg), header, frame, traceback_length)
 
     @classmethod
     def print_function_call(cls, params=None, header="") -> str:
@@ -201,10 +184,7 @@ class Logger:
             )
         else:
             return cls().log_info(
-                "Called "
-                + inspect.getmodule(frame).__name__
-                + "."
-                + frame.f_code.co_name,
+                "Called " + inspect.getmodule(frame).__name__ + "." + frame.f_code.co_name,
                 header,
                 frame,
             )
